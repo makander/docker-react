@@ -1,0 +1,20 @@
+version: "3" #måste vara en sträng
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - 3000:3000
+    volumes:
+      - /app/node_modules # mappa inte mot node modules
+      - .:/app # mappa workingdir (.) mot app dir
+
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules # mappa inte mot node modules
+      - .:/app # mappa workingdir (.) mot app dir
+    command: ["npm", "run", "test"]
